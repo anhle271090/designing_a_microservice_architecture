@@ -1,0 +1,61 @@
+@startuml
+
+skinparam componentStyle uml2
+
+package "'Domain Model' " <<Rectangle>> {
+	class Binder <<(E,DarkSeaGreen) Entity>> {
+		String quote
+	}
+	class Policy <<(E,DarkSeaGreen) Entity>> {
+		String binder
+		String policyId
+		List<Order> orderList
+	}
+	class InsuranceProduct <<(E,DarkSeaGreen) Entity>> {
+		String salesProduct
+		String product
+		String elementaryProduct
+	}
+	class Payment <<(E,DarkSeaGreen) Entity>> {
+		String price
+		String code
+		String paymentMethod
+	}
+	class Order <<(E,DarkSeaGreen) Entity>> {
+		String orderItems
+		String binder
+		List<Payment> paymentList
+	}
+	class QuoteRequest <<(E,DarkSeaGreen) Entity>> {
+		String preBuiltQuote
+		String customerInfo
+		String loanId
+	}
+	class Quote <<(E,DarkSeaGreen) Entity>> {
+		String id
+		String quoteURL
+		List<QuoteRequest> quoterequestList
+		List<QuoteItem> quoteitemList
+	}
+	class QuoteItem <<(E,DarkSeaGreen) Entity>> {
+	}
+	class Customer <<(E,DarkSeaGreen) Entity>> {
+		List<Order> orderList
+	}
+	class PreBuiltQuote <<(E,DarkSeaGreen) Entity>> {
+		String salesProduct
+		String premium
+	}
+}
+Quote "1" o--> "*" QuoteItem : quoteitemList
+Order "1" o--> "*" Payment : paymentList
+Policy "1" o--> "*" Order : orderList
+Quote "1" o--> "*" QuoteRequest : quoterequestList
+Customer "1" o--> "*" Order : orderList
+legend left
+  This subdomain is part of the 'InsuranceDomain' domain.
+
+end legend
+
+
+@enduml

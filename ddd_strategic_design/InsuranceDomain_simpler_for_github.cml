@@ -1,0 +1,310 @@
+
+
+BoundedContext PolicyBoundedContext implements PolicySubDomain , BinderSubDomain {
+	domainVisionStatement "This Bounded Context realizes the following subdomains: BinderSubDomain, PolicySubDomain"
+	type FEATURE
+	/* This Aggregate contains the entities and services of the 'PolicySubDomain' subdomain.
+	 * TODO: You can now refactor the Aggregate, for example by using the 'Split Aggregate by Entities' architectural refactoring.
+	 * TODO: Add attributes and operations to the entities.
+	 * TODO: Add operations to the services.
+	 * Find examples and further instructions on our website: https://contextmapper.org/docs/rapid-ooad/ */
+	/* This Aggregate contains the entities and services of the 'PolicySubDomain' subdomain.
+	 * TODO: You can now refactor the Aggregate, for example by using the 'Split Aggregate by Entities' architectural refactoring.
+	 * TODO: Add attributes and operations to the entities.
+	 * TODO: Add operations to the services.
+	 * Find examples and further instructions on our website: https://contextmapper.org/docs/rapid-ooad/ */
+	Aggregate PolicySubDomainAggregate {
+		Service PolicyService {
+			String createPolicy (@Policy policy);
+			String updatePolicy (@Policy policy);
+			Set<@Policy> readPolicy (Set<String> id);
+		}
+		Entity Policy {
+			aggregateRoot
+			String binder
+			String policyId
+		}
+	}
+	/* This Aggregate contains the entities and services of the 'BinderSubDomain' subdomain.
+	 * TODO: You can now refactor the Aggregate, for example by using the 'Split Aggregate by Entities' architectural refactoring.
+	 * TODO: Add attributes and operations to the entities.
+	 * TODO: Add operations to the services.
+	 * Find examples and further instructions on our website: https://contextmapper.org/docs/rapid-ooad/ */
+	/* This Aggregate contains the entities and services of the 'BinderSubDomain' subdomain.
+	 * TODO: You can now refactor the Aggregate, for example by using the 'Split Aggregate by Entities' architectural refactoring.
+	 * TODO: Add attributes and operations to the entities.
+	 * TODO: Add operations to the services.
+	 * Find examples and further instructions on our website: https://contextmapper.org/docs/rapid-ooad/ */
+	Aggregate BinderSubDomainAggregate {
+		Service BinderService {
+			String createBinder (@Binder binder);
+			boolean confirmBinder (@Binder binder);
+		}
+		Entity Binder {
+			aggregateRoot
+			String quote
+			String binderId key
+		}
+	}
+}
+
+BoundedContext SalesBoundedContext implements OrderSubDomain {
+	domainVisionStatement "This Bounded Context realizes the following subdomains: OrderSubDomain"
+	type FEATURE
+	/* This Aggregate contains the entities and services of the 'OrderSubDomain' subdomain.
+	 * TODO: You can now refactor the Aggregate, for example by using the 'Split Aggregate by Entities' architectural refactoring.
+	 * TODO: Add attributes and operations to the entities.
+	 * TODO: Add operations to the services.
+	 * Find examples and further instructions on our website: https://contextmapper.org/docs/rapid-ooad/ */
+	Aggregate OrderSubDomainAggregate {
+		Service OrderService {
+			String createOrder (@Order order);
+			boolean acceptOrder (@Order order);
+			boolean checkoutOrder (@Order order);
+		}
+		Entity Order {
+			aggregateRoot
+			String orderItems
+			String binder
+			String orderId key
+		}
+		Entity Customer {
+			String customerId key
+			- List<Order> orderList
+		}
+	}
+}
+
+BoundedContext FinanceBoundedContext implements PaymentSubDomain {
+	domainVisionStatement "This Bounded Context realizes the following subdomains: PaymentSubDomain"
+	type FEATURE
+	/* This Aggregate contains the entities and services of the 'PaymentSubDomain' subdomain.
+	 * TODO: You can now refactor the Aggregate, for example by using the 'Split Aggregate by Entities' architectural refactoring.
+	 * TODO: Add attributes and operations to the entities.
+	 * TODO: Add operations to the services.
+	 * Find examples and further instructions on our website: https://contextmapper.org/docs/rapid-ooad/ */
+	Aggregate PaymentSubDomainAggregate {
+		Service PaymentService {
+			String createPayment (@Payment payment);
+			boolean payPayment (@Payment payment);
+			boolean rejectPayment (@Payment payment);
+		}
+		Entity Payment {
+			String price
+			String code
+			String paymentMethod
+			String paymentId key
+		}
+	}
+}
+
+BoundedContext QuoteBoundedContext implements PreBuiltQuoteSubDomain , QuoteSubDomain {
+	domainVisionStatement "This Bounded Context realizes the following subdomains: PreBuiltQuoteSubDomain, QuoteSubDomain"
+	type FEATURE
+	/* This Aggregate contains the entities and services of the 'PreBuiltQuoteSubDomain' subdomain.
+	 * TODO: You can now refactor the Aggregate, for example by using the 'Split Aggregate by Entities' architectural refactoring.
+	 * TODO: Add attributes and operations to the entities.
+	 * TODO: Add operations to the services.
+	 * Find examples and further instructions on our website: https://contextmapper.org/docs/rapid-ooad/ */
+	Aggregate PreBuiltQuoteSubDomainAggregate {
+		Service PreBuiltQuoteService {
+			String createPreBuiltQuote (@PreBuiltQuote preBuiltQuote);
+			boolean calculatePreBuiltQuote (@PreBuiltQuote preBuiltQuote);
+		}
+		Entity PreBuiltQuote {
+			String salesProduct
+			String premium
+			String prebuiltquoteId key
+		}
+	}
+	/* This Aggregate contains the entities and services of the 'QuoteSubDomain' subdomain.
+	 * TODO: You can now refactor the Aggregate, for example by using the 'Split Aggregate by Entities' architectural refactoring.
+	 * TODO: Add attributes and operations to the entities.
+	 * TODO: Add operations to the services.
+	 * Find examples and further instructions on our website: https://contextmapper.org/docs/rapid-ooad/ */
+	Aggregate QuoteSubDomainAggregate {
+		Service QuoteRequestService {
+			boolean submitQuoteRequest (@QuoteRequest quoteRequest);
+			Set<@Quote> readQuote (Set<String> id);
+			Set<@QuoteItem> readQuoteItem (Set<String> id);
+		}
+		Entity QuoteRequest {
+			String preBuiltQuote
+			String customerInfo
+			String loanId
+			String quoterequestId key
+		}
+		Entity Quote {
+			String id
+			String quoteURL
+			String quoteId key
+			- List<QuoteRequest> quoterequestList
+			- List<QuoteItem> quoteitemList
+		}
+		Entity QuoteItem {
+			String quoteitemId key
+		}
+	}
+}
+
+Domain InsuranceDomain {
+	Subdomain ProductSubDomain supports InsuranceProduct {
+		domainVisionStatement "Aims at promoting the following benefit for a Admin: Manage insurance product"
+		Entity InsuranceProduct {
+			String salesProduct
+			String product
+			String elementaryProduct
+		}
+		Service InsuranceProductService {
+			createInsuranceProduct;
+		}
+	}
+
+	Subdomain PreBuiltQuoteSubDomain supports PreBuiltQuote {
+		domainVisionStatement "Aims at promoting the following benefit for a DIB Admin: pre-built insurance product for customer so that can be easy for buying"
+		Entity PreBuiltQuote {
+			String salesProduct
+			String premium
+		}
+		Service PreBuiltQuoteService {
+			createPreBuiltQuote;
+			calculatePreBuiltQuote;
+		}
+	}
+
+	Subdomain QuoteSubDomain supports QuoteRequest {
+		domainVisionStatement "Aims at promoting the following benefit for a HC Employee: I can request insurace quote to insurance company"
+		Entity QuoteRequest {
+			String preBuiltQuote
+			String customerInfo
+			String loanId
+		}
+		Entity Quote {
+			String id
+			String quoteURL
+			- List<QuoteRequest> quoterequestList
+			- List<QuoteItem> quoteitemList
+		}
+		Entity QuoteItem
+		Service QuoteRequestService {
+			submitQuoteRequest;
+			readQuote;
+			readQuoteItem;
+		}
+	}
+
+	Subdomain BinderSubDomain supports Binder {
+		domainVisionStatement "Aims at promoting the following benefit for a Order system: I can manage Binder for Policy"
+		Entity Binder {
+			String quote
+		}
+		Service BinderService {
+			createBinder;
+			confirmBinder;
+		}
+	}
+
+	Subdomain PolicySubDomain supports Policy {
+		domainVisionStatement "Aims at promoting the following benefit for a Quote System: Manage customer\'s policy."
+		Entity Policy {
+			String binder
+			String policyId
+		}
+		Service PolicyService {
+			createPolicy;
+			updatePolicy;
+			readPolicy;
+		}
+	}
+
+	Subdomain OrderSubDomain supports Order {
+		domainVisionStatement "Aims at promoting the following benefit for a Quote System: I can issue a policy for quote thought order and payment"
+		Entity Order {
+			String orderItems
+			String binder
+		}
+		Entity Customer {
+			- List<Order> orderList
+		}
+		// Entity Policy {
+		// - List<Order> orderList
+		// }
+		Service OrderService {
+			createOrder;
+			acceptOrder;
+			checkoutOrder;
+		}
+	}
+
+	Subdomain PaymentSubDomain supports Payment {
+		domainVisionStatement "Aims at promoting the following benefit for a Quoter: Manage order\'s payment"
+		Entity Payment {
+			String price
+			String code
+			String paymentMethod
+		}
+		// Entity Order {
+		// - List<Payment> paymentList
+		// }
+		Service PaymentService {
+			createPayment;
+			payPayment;
+			rejectPayment;
+		}
+	}
+
+}
+
+UserStory InsuranceProduct{
+	As an "Admin"
+	I want to "create" a "InsuranceProduct" with its "SalesProduct", "Product", "ElementaryProduct"
+	so that "Manage insurance product"
+}
+
+UserStory PreBuiltQuote{
+	As a "DIB Admin"
+	I want to "create" "PreBuiltQuote" with its "SalesProduct"
+	I want to "calculate" a "PreBuiltQuote" with its "premium"
+	so that "pre-built insurance product for customer so that can be easy for buying"
+}
+
+UserStory QuoteRequest{
+	As a "HC Employee"
+	I want to "submit" a "QuoteRequest" with its "PreBuiltQuote", "CustomerInfo", "LoanId" for a "Quote"
+	I want to read "Quote" with its "Id", "QuoteURL"
+	I want to read "QuoteItem" in "Quote"
+	so that "I can request insurace quote to insurance company"
+}
+
+UserStory Binder{
+	As a "Order system"
+	I want to "create" a "Binder" with its "Quote"
+	I want to "confirm" a "Binder"
+	so that "I can manage Binder for Policy"
+}
+
+UserStory Policy{
+	As a "Quote System"
+	I want to "create" a "Policy" with its "Binder"
+	I want to update a "Policy"
+	I want to read a "Policy" with its "policyId"
+	so that "Manage customer's policy."
+}
+
+UserStory Order{
+	As a "Quote System"
+	I want to "create" an "Order" with its "OrderItems" for "Customer"
+	I want to "accept" an "Order" with its "Binder" for "Policy"
+	I want to "checkout" "Order" to "Customer"
+	so that "I can issue a policy for quote thought order and payment"
+}
+
+UserStory Payment{
+	As an "Order System"
+	I want to "create" an "Payment" with its "Price", "Code", "PaymentMethod" for "Order"
+	// I want to "pay" a "Payment" to "Order"
+	// I want to "reject" a "Payment"
+	so that "Manage order's payment"
+}
+
+// raw requirements: business problems, business wishes, scenarios
