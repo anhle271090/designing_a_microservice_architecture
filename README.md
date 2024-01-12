@@ -18,13 +18,14 @@
 *** See the bottom of this document for the declaration of the reference variables
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
--->
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
+-->
+
 
 
 
@@ -32,7 +33,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/anhle271090/designing_a_microservice_architecture">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="ddd_strategic_design/final_screenshot.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">Designing a microservice architecture</h3>
@@ -86,15 +87,15 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-Starting with frontend developer position and going through many different projects.
-I have been working for building microservices system with alot of challenges. So I wrote this project just for reminding me what I have done wrong and right so far.
+Starting with a frontend developer position and going through many different projects, I have been working on building a microservice system with a lot of challenges.
+I wrote this project to remind myself of what I have done wrong and right so far.
 
-Here's some of my main points:
-* Mistakes that give microservices a bad implementation.
-* Correcting mistakes continuously to build a better microservices (I'm sure that It's still not good enough)
+Here are some of my main points:
+* Mistakes that lead to a bad implementation of microservices.
+* Correcting mistakes continuously to build better microservices (I'm sure that it's still not good enough)
 * My lessons learned
 
-Of course, this is only my own experiences. Thanks to all the people!
+Of course, this is only based on my own experiences. Thanks to all the people!
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -103,7 +104,7 @@ Of course, this is only my own experiences. Thanks to all the people!
 ## Bad microservices
 
 ### Context: Third Party Administrator for Insurance Company
-My team was responsible for building a system that helps an insurance company branch to manage their policies, claims. Integrate with HO and other company's system.
+My team was responsible for building a system that helps an insurance company branch to manage their policies and claims. It also integrates with the HO and other company's systems.
 
 This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
 
@@ -121,23 +122,25 @@ This section should list any major frameworks/libraries used to bootstrap your p
 
 
 <!-- GETTING STARTED -->
-## Getting Started
+## Better microservices
 
-Basically, The requirement is about building an Insurance Platform:
-* Managing insurance products with three levels and four lines of products
-* Allowing to custom product's attribute and premium formular
-* Allowing to custom workflow for sales and issuing policies
-* Intergrating with multiple insurance providers
-* Supporting claim creation
+Basically, the requirement is about building an insurance platform that can:
+* Manage insurance products with three levels and four lines of products
+* Allow customizing product's attributes and premium formulas
+* Allow customizing workflows for sales and issuing policies
+* Integrate with multiple insurance providers
+* Support claim creation
   
-## Which approach I used for this platform?
+### Which approach did I use for this platform?
 * Domain Driven Design: this is an approach to developing software for complex needs.
+  * To me, this approach is suitable for complicated business applications
+ 
+### 1. Stagetic phase/Designing architecture/High level picture.
 
-### Step 1: Define user stories
-
-This is an example of how to buy an insurance.
+#### Step 1: Defining user stories
+Start with application’s requirements, e.g. user stories/scenarios, non-functional requirements.
 <br/>
-<i>Note: this is only a simple example. It's not a full work</i>
+<i>Note: This is an example of how to buy an insurance. It's not a full work</i>
 * User stories
   ```js
   UserStory InsuranceProduct{
@@ -147,14 +150,14 @@ This is an example of how to buy an insurance.
   }
   
   UserStory PreBuiltQuote{
-  	As a "DIB Admin"
+  	As a "Operation Admin"
   	I want to "create" "PreBuiltQuote" with its "SalesProduct"
   	I want to "calculate" a "PreBuiltQuote" with its "premium"
   	so that "pre-built insurance product for customer so that can be easy for buying"
   }
   
   UserStory QuoteRequest{
-  	As a "HC Employee"
+  	As a "3rd Party Employee"
   	I want to "submit" a "QuoteRequest" with its "PreBuiltQuote", "CustomerInfo", "LoanId" for a "Quote"
   	I want to read "Quote" with its "Id", "QuoteURL"
   	I want to read "QuoteItem" in "Quote"
@@ -194,29 +197,49 @@ This is an example of how to buy an insurance.
   ```
 
   
-### Step 2: Define Domain Model
-
+#### Step 2: Defining Domain Model
+The sencond step: distills the requirements into a set of system operations.
+<br/>
+The deliverables consist of Domain Model:
+<br/>
 <a href="https://github.com/anhle271090/designing_a_microservice_architecture/ddd_strategic_design/InsuranceDomain_simpler_DomainModel.png">
     <img src="ddd_strategic_design/InsuranceDomain_simpler_DomainModel.png" alt="InsuranceDomain_simpler_DomainModel" width="800">
 </a>
+</br>
+<i>Note: This is an example of how to buy an insurance. It's not a full work.</i>
+<i>This model don't contain entity's behaviors. I'll update for it later</i>
+<br/>
+<br/>
 
-### Step 3: Define Subdomains
-* ProductSubDomain: Aims at promoting the following benefit for a Admin: Manage insurance product
-* PreBuiltQuoteSubDomain: Aims at promoting the following benefit for a Admin: pre-built insurance product for customer so that can be easy for buying
-* QuoteSubDomain: Aims at promoting the following benefit for a employee: I can request insurace quote to insurance company
-* BinderSubDomain: Aims at promoting the following benefit for a Order system: I can manage Binder for Policy
-* PolicySubDomain: Aims at promoting the following benefit for a Quote System: Manage customer's policy.
-* OrderSubDomain: Aims at promoting the following benefit for a Quote System: I can issue a policy for quote thought order and payment
-* PaymentSubDomain: Aims at promoting the following benefit for a Quoter: Manage order's payment
-
-Defining subdomains is challenging because it’s a creative activity (not something you can buy, download or read in a manual).
-It requires clear understanding of the business. In my case, I had a chance to meet domain experts and spend enough time with them.
-
-<a href="https://github.com/anhle271090/designing_a_microservice_architecture/ddd_strategic_design/Define_sub_domains.png">
-    <img src="ddd_strategic_design/Define_sub_domains.png" alt="Define_sub_domains" width="800">
+Tips: If you want a tool to transform domain knowledge into effective business software.
+I found this tool: Domain Storytelling. It brings together domain experts and development teams
+<br/>
+Project Link: [egon app](https://egon.io/app-v2/)
+<br/>
+Here is my sample for it:
+<br/>
+<a href="https://github.com/anhle271090/designing_a_microservice_architecture/ddd_strategic_design/Domain_storytelling_example.png">
+    <img src="ddd_strategic_design/Domain_storytelling_example.png" alt="Domain_storytelling_example.png" width="600">
 </a>
 
-### Step 4: Define Bounded Contexts
+
+#### Step 3: Defining Subdomains
+Defining subdomains is challenging because it’s a creative activity (not something you can buy, download or read in a manual).
+It requires a clear understanding of the business. In my case, I had a chance to meet domain experts and spend enough time with them.
+<br/>
+* ProductSubDomain: Manage insurance product for a Admin
+* PreBuiltQuoteSubDomain: pre-built insurance product for customer so that can be easy for buying
+* QuoteSubDomain: employee can request insurace quote to insurance company
+* BinderSubDomain: Order system can manage Binder for Policy
+* PolicySubDomain: Manage customer's policy.
+* OrderSubDomain: Quote System can issue a policy for quote thought order and payment
+* PaymentSubDomain: Manage order's payment
+
+<a href="https://github.com/anhle271090/designing_a_microservice_architecture/ddd_strategic_design/Define_sub_domains.png">
+    <img src="ddd_strategic_design/Define_sub_domains.png" alt="Define_sub_domains" width="500">
+</a>
+
+#### Step 4: Defining Bounded Contexts
 Bounded context is the hardest thing in my jouney. Till now, I'm still practicing for this step.
 </br>
 Read more at: [Link](https://martinfowler.com/bliki/BoundedContext.html)
@@ -228,16 +251,31 @@ Here is my example for defining bounded contexts based on the design at step 3:
 * FinanceBoundedContext: PaymentSubDomain
 * QuoteBoundedContext: PreBuiltQuoteSubDomain and QuoteSubDomain
 
-### Step 5: Bounded Contexts and Context map
-After keeping update the design with a lot of new requirements.
+#### Step 5: Bounded Contexts and Context map
+##### Bounded Contexts:
+After updating the design with a lot of new requirements,
 </br>
-Then I have a better Context Map with some more Bounded Contexts.
+I have a better context map with some more bounded contexts.
+</br>
+##### Context map:
+To me, defining integration patterns between bounded contexts is very important. It is a powerful tool for me to design service collaborations, choose implementation technology, and organize teams.
+To make decisions, I have some guidelines like this:
+* Which one is upstream/downstream?
+* Which one is core domain, suporting or generic subdomains?
+* Which one has higher priority in changing the model?
+  
+</br>
+My bounded context map:
 </br>
 <a href="https://github.com/anhle271090/designing_a_microservice_architecture/ddd_strategic_design/InsuranceDomain_simpler_ContextMap.svg">
     <img src="ddd_strategic_design/InsuranceDomain_simpler_ContextMap.svg" alt="InsuranceDomain_simpler_ContextMap" width="1000">
 </a>
 </br>
 <i>Note: this is only a simple example. It's not a final design</i>
+
+### 2. Designing services
+
+
 
 ### Installation
 
@@ -359,7 +397,7 @@ Use this space to list resources you find helpful and would like to give credit 
 [license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/othneildrew
-[product-screenshot]: images/screenshot.png
+[product-screenshot]: ddd_strategic_design/final_screenshot.png
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
