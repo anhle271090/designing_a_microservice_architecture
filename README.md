@@ -65,7 +65,7 @@ Of course, this is only based on my own experiences. Thanks to all the people!
 
 
 
-## Bad microservices
+## Bad microservices ❗
 
 ### Context: Third Party Administrator for Insurance Company
 My team was responsible for building a system that helps an insurance company branch to manage their policies and claims. It also integrates with the HO and other company's systems.
@@ -86,7 +86,7 @@ Eventually, we had a god service that contained a lot of functions. It became a 
   <br/>
 
 <!-- GETTING STARTED -->
-## Better microservices
+## Better microservices ✅
 
 Basically, the requirement is about building an insurance platform that can:
 * Manage insurance products with three levels and four lines of products
@@ -300,7 +300,7 @@ _input later_
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
+Use this space to list resources you find helpful and would like to give credit to.
 
 * [Context mapper](https://contextmapper.org)
 * [microservices.io](https://microservices.io/index.html)
