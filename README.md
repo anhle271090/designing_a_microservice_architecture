@@ -244,13 +244,14 @@ Before move to designing services path. I want to talk about: What is the hardes
  	* In my case, I used `Bounded Context` to model the domain. However, it's based on my real experience about business capability (company organization).
 * Maintaining Data Consistency: Database per service pattern lead us to: can not use ACID transactions
 	* `SAGA pattern` is my decision.
- 		* Missing in implementation: canceling a pending Saga and lacking of I in ACID.
+ 		* With each step: Paticipant/Transaction/Compensation Transaction
+   		* Missing in implementation: canceling a pending Saga and lacking of I in ACID.
 * Communication: Since each microservice is typically self-contained, it can be difficult to communicate with them effectively
 	* APIs is a good way for communication. However, how can we design good APIs? REST
  	* Loose coupled services: I used `Kafka` for message bus in my system (why don't use `RabbitMQ`? -> Reusing existing technology).
 * Long-running process: A long running process can span from a few milliseconds up to decade to complete a business process.
 	* A common challenge is to manage the state and progress.
- 		* In my solution, I used workflow engine ([ELSA](https://github.com/elsa-workflows/elsa-core/tree/2.x)) to **`orchestrate`** the process of sales subdomains.
+ 		* In my solution, I used workflow engine ([ELSA](https://github.com/elsa-workflows/elsa-core/tree/2.x)) to **`orchestrate`** the process of `Sales subdomains`.
    		* With group of `Policy subdomains`: I pick **`choreophy`** approach.
 
 #### Defining services
