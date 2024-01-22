@@ -85,6 +85,11 @@ Eventually, we had a god service that contained a lot of functions. It became a 
 * Message bus: all services work together by APIs
   <br/>
 
+#### Don't reinvent the wheel.
+In my attempt to solve the mistakes that I and my team made, we created another problem. We tried to improve the system by creating a Job service that receives and executes async tasks in the system.
+But over time, the service became a mess with self-built features. Finally, I realized that we needed a background job processing solution and Hangfire was one of them.
+I'm still asking myself why I did it that way.
+
 <!-- GETTING STARTED -->
 ## Better microservices ✅
 
