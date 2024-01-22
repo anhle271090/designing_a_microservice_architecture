@@ -86,8 +86,8 @@ Eventually, we had a god service that contained a lot of functions. It became a 
   <br/>
 
 #### Don't reinvent the wheel.
-In my attempt to solve the mistakes that I and my team made, we created another problem. We tried to improve the system by creating a Job service that receives and executes async tasks in the system.
-But over time, the service became a mess with self-built features. Finally, I realized that we needed a background job processing solution and Hangfire was one of them.
+In my attempt to solve the mistakes that I and my team made, we created another problem. We tried to improve the system by creating a `Job service` that receives and executes async tasks in the system.
+But over time, the service became a mess with `self-built features`. Finally, I realized that we needed a background job processing solution and `Hangfire` was one of them.
 I'm still asking myself why I did it that way.
 
 <!-- GETTING STARTED -->
@@ -273,7 +273,7 @@ a. Basic application design:
 _more details later_
 </br>
 <a href="https://github.com/anhle271090/designing_a_microservice_architecture/blob/main/tatical_design/Service_Components.svg">
-    <img src="https://github.com/anhle271090/designing_a_microservice_architecture/blob/main/tatical_design/Service_Components.svg" alt="Service_Components" width="800">
+    <img src="https://github.com/anhle271090/designing_a_microservice_architecture/blob/main/tatical_design/Service_Components.svg" alt="Service_Components" width="600">
 </a>
 </br>
 </br>
@@ -281,7 +281,7 @@ b. Order management application design:
 _more details later_
 </br>
 <a href="https://github.com/anhle271090/designing_a_microservice_architecture/blob/main/tatical_design/Order_Application_Design_Defining-Software architect.svg">
-    <img src="https://github.com/anhle271090/designing_a_microservice_architecture/blob/main/tatical_design/Order_Application_Design_Defining-Software architect.svg" alt="Order_Application_Design_Defining-Software architect" width="800">
+    <img src="https://github.com/anhle271090/designing_a_microservice_architecture/blob/main/tatical_design/Order_Application_Design_Defining-Software architect.svg" alt="Order_Application_Design_Defining-Software architect" width="600">
 </a>
 </br>
 </br>
@@ -289,7 +289,13 @@ c. Long-running process design:
 _more details later_
 </br>
 <a href="https://github.com/anhle271090/designing_a_microservice_architecture/blob/main/tatical_design/Order_Application_Design_Defining-Sales-Flowing.svg">
-    <img src="https://github.com/anhle271090/designing_a_microservice_architecture/blob/main/tatical_design/Order_Application_Design_Defining-Sales-Flowing.svg" alt="Order_Application_Design_Defining-Sales-Flowing" width="800">
+    <img src="https://github.com/anhle271090/designing_a_microservice_architecture/blob/main/tatical_design/Order_Application_Design_Defining-Sales-Flowing.svg" alt="Order_Application_Design_Defining-Sales-Flowing" width="600">
+</a>
+</br>
+Workflow engine demo:
+</br>
+<a href="https://github.com/anhle271090/designing_a_microservice_architecture/blob/main/tatical_design/workflow_engine_demo.png">
+    <img src="https://github.com/anhle271090/designing_a_microservice_architecture/blob/main/tatical_design/workflow_engine_demo.png" alt="workflow_engine_demo.png" width="600">
 </a>
 
 
